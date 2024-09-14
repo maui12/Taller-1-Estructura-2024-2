@@ -14,4 +14,4 @@ class Libro:public MaterialBibliografico {
 		void setFechaPublicacion(std::string fechaPublicacion);
 		void setResumen(std::string resumen);
 		std::string mostrarInformacion();
-}
+};
