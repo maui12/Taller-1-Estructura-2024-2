@@ -41,10 +41,13 @@ void MaterialBibliografico::setPrestado(int prestado) {
 	this ->prestado = prestado;
 }
 
-std::string mostrarInformacion(){
+std::string MaterialBibliografico::mostrarInformacion() {
 	return "";
 }
 
+MaterialBibliografico::~MaterialBibliografico() {
+
+}
 
 
 

@@ -24,5 +24,9 @@ void Revista::setMesPublicacion(std::string mesPublicacion) {
 }
 
 std::string Revista::mostrarInformacion() {
+	return "";
+}
+
+Revista::~Revista() {
 
 }

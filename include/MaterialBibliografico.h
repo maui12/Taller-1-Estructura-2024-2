@@ -19,6 +19,6 @@ class MaterialBibliografico {
 		void setIsbn(std::string isbn);
 		void setPrestado(int prestado);
 		virtual std::string mostrarInformacion();
-		//~MaterialBibliografico();
+		virtual ~MaterialBibliografico();
 
 };

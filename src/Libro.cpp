@@ -24,5 +24,9 @@ void Libro::setResumen(std::string resumen) {
 }
 
 std::string Libro::mostrarInformacion() {
+	return "";
+}
+
+Libro::~Libro() {
 
 }
