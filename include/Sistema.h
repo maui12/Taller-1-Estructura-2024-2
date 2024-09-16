@@ -1,12 +1,17 @@
 #pragma once
 #include "MaterialBibliografico.h"
+#include "Libro.h"
+#include "Revista.h"
 #include "Usuario.h"
 #include <iostream>
 
 class Sistema {
 	private:
-		MaterialBibliografico* biblioteca[100];
-		Usuario* usuarios[100];
+		static const int maxSize = 100;
+		int sizeBiblioteca;
+		int sizeUsuario;
+		MaterialBibliografico* biblioteca[maxSize];
+		Usuario* usuarios[maxSize];
 	public:
 		Sistema();
 		void leer();
@@ -22,5 +27,7 @@ class Sistema {
 		bool eliminarUsuario();
 
 		void guardarCambios();
+
+		bool agregarAListaBiblioteca(MaterialBibliografico* material);
 
 };

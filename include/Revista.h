@@ -3,11 +3,11 @@
 #include "MaterialBibliografico.h"
 
 class Revista: public MaterialBibliografico {
-	public:
+	private:
 		std::string numeroEdicion;
 		std::string mesPublicacion;
 
-	private:
+	public:
 		Revista(std::string nombre, std::string autor, std::string isbn, int prestado, std::string numeroEdicion, std::string mesPublicacion);
 		std::string getNumeroEdicion();
 		std::string getMesPublicacion();
