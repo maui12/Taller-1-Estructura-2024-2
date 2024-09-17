@@ -3,11 +3,11 @@
 #include "MaterialBibliografico.h"
 
 class Usuario {
-	public:
+	private:
 		std::string nombre;
 		std::string id;
 		MaterialBibliografico* materialesPrestados[5];
-	private:
+	public:
 		Usuario(std::string nombre, std::string id);
 		std::string getNombre();
 		std::string getId();
@@ -17,6 +17,8 @@ class Usuario {
 		void prestarMaterial();
 		void devolverMaterial();
 		void mostrarMaterialesPrestados();
+
+		std::string toString();
 };
 
 

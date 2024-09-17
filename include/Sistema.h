@@ -8,8 +8,10 @@
 class Sistema {
 	private:
 		static const int maxSize = 100;
-		int sizeBiblioteca;
-		int sizeUsuario;
+
+		int sizeBiblioteca; //tamano actual del array biblioteca
+		int sizeUsuario; //tamano actual del array usuario
+
 		MaterialBibliografico* biblioteca[maxSize];
 		Usuario* usuarios[maxSize];
 	public:
@@ -22,12 +24,14 @@ class Sistema {
 		void prestarMaterial();
 		void devolverMaterial();
 
-		bool agregarUsuario();
-		bool buscarUsuario();
+		void agregarUsuario();
+		void buscarUsuario();
 		bool eliminarUsuario();
 
 		void guardarCambios();
 
 		bool agregarAListaBiblioteca(MaterialBibliografico* material);
+		void agregarAListaUsuarios(Usuario* usuario);
+		void mostrarUsuarios();
 
 };

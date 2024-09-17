@@ -31,6 +31,7 @@ bool menu(Sistema* sistema) {
    		break;
    	case 2:
    		sistema->mostrarBiblioteca();
+   		sistema->mostrarUsuarios();
    		break;
    	case 3:
    		sistema->buscarMaterial();

@@ -34,3 +34,7 @@ void Usuario::devolverMaterial() {
 void Usuario::mostrarMaterialesPrestados() {
 
 }
+
+std::string Usuario::toString() {
+	return "[ ID = "+id+"  Nombre = "+nombre+" ]";
+}

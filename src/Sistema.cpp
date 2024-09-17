@@ -49,7 +49,7 @@ bool Sistema::agregarMaterialABiblioteca() {
             break;
         }
         case 2: {
-            std::cout << "[Revista] Ingrese numero de edicion: " << std::endl;
+            std::cout << "[Revista] Ingrese numero de edicion: "<< std::endl;
             std::string num;
             std::cin >> num;
 
@@ -87,16 +87,64 @@ void Sistema::devolverMaterial() {
 
 }
 
-bool Sistema::agregarUsuario() {
+void Sistema::agregarUsuario() {
+	std::cout << "===== Registrar Nuevo Usuario ===== \n" << std::endl;
 
+	std::cout << "-Ingrese nombre: " << std::endl;
+	std::string nombre;
+	std::cin >> nombre;
+
+	Usuario* usuario;
+
+	if(sizeUsuario == 0) {
+		usuario = new Usuario(nombre,"0");
+	}
+	else {
+		usuario = new Usuario(nombre,std::to_string(std::stoi(usuarios[sizeUsuario - 1]->getId()) + 1));
+	}
+	agregarAListaUsuarios(usuario);
 }
 
-bool Sistema::buscarUsuario() {
+void Sistema::buscarUsuario() {
 
 }
 
 bool Sistema::eliminarUsuario() {
+    if (sizeUsuario == 0) {
+        std::cout << "No hay usuarios para eliminar.\n";
+        return false;
+    }
 
+    mostrarUsuarios();
+
+    std::cout << "Ingrese la ID del usuario a eliminar: ";
+    std::string id;
+    std::cin >> id;
+
+    // buscar usuario por id
+    int index = -1;
+    for (int i = 0; i < sizeUsuario; i++) {
+        if (usuarios[i]->getId() == id) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) {
+        std::cerr << "Usuario con ID " << id << " no encontrado \n";
+        return false;
+    }
+
+    delete usuarios[index];
+
+    // mover elementos a la izquierda
+    for (int i = index; i < sizeUsuario - 1; i++) {
+        usuarios[i] = usuarios[i + 1];
+    }
+
+    sizeUsuario--;
+    std::cout << "Usuario eliminado correctamente \n";
+    return true;
 }
 
 void Sistema::guardarCambios() {
@@ -104,7 +152,7 @@ void Sistema::guardarCambios() {
 }
 
 bool Sistema::agregarAListaBiblioteca(MaterialBibliografico* material) {
-	if (sizeBiblioteca < maxSize) {
+	if (sizeBiblioteca < maxSize) { //verifica que no exceda el tamano del array
 		biblioteca[sizeBiblioteca] = material;
 	    sizeBiblioteca++;
 	    std::cout << "Agregado a la Biblioteca exitosamente \n";
@@ -114,4 +162,24 @@ bool Sistema::agregarAListaBiblioteca(MaterialBibliografico* material) {
 	    return false;
 	}
 	return false;
+}
+
+void Sistema::agregarAListaUsuarios(Usuario* usuario) {
+	if(sizeUsuario < maxSize) { //verifica que no exceda el tamano del array
+		usuarios[sizeUsuario] = usuario;
+		sizeUsuario++;
+		std::cout << "Usuario registrado correctamente \n";
+	}
+	else {
+		std::cerr << "La lista de Usuarios esta llena.\n";
+	}
+}
+
+void Sistema::mostrarUsuarios() {
+	if(sizeUsuario == 0) {
+		std::cout << "No hay usuarios \n";
+	}
+	for(int i = 0 ; i < sizeUsuario; i++) {
+		std::cout << usuarios[i]->toString() + "\n";
+	}
 }
