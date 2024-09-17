@@ -7,6 +7,8 @@ class Usuario {
 		std::string nombre;
 		std::string id;
 		MaterialBibliografico* materialesPrestados[5];
+		
+		
 	public:
 		Usuario(std::string nombre, std::string id);
 		std::string getNombre();
