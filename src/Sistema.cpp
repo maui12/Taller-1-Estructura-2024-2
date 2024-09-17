@@ -67,7 +67,7 @@ bool Sistema::agregarMaterialABiblioteca() {
         return false;
     }
 
-    return agregarAListaBiblioteca(material);
+    return agregarAListaBiblioteca(material); 
 }
 
 void Sistema::mostrarBiblioteca() {
@@ -104,6 +104,41 @@ bool Sistema::buscarMaterial() {
 }
 
 void Sistema::prestarMaterial() {
+    std::cout << "Ingrese el isbn del material bibliografico que quieres pedir prestado :" + "\n";
+    std::string isbn;
+    std::cin >> isbn;
+
+    std::cout << "Ingrese el nombre de la persona  que quiere pedir prestado el material bibliografico :" + "\n";
+    std::string nombre;
+    std::cin >> nombre;
+
+    for(int i = 0 ; i < sizeBiblioteca ; i++){
+        if(biblioteca[i] -> getIsbn == isbn){
+            biblioteca[i] -> setPrestado(1);
+            for(int i = 0 ; i < sizeUsuario ; i++){
+                if(usuarios[i]-> getNombre == nombre){
+                    usuarios[i] -> prestarMaterial(biblioteca[i]);
+                    std::cout << "Se a prestado el material bibliografico de isbn " + isbn + "con autor del prestamo a " + nombre +  "\n";
+                }
+                else{
+                    std::cout << "No se a encontrado el usuario"\n";
+                    return;
+                }
+
+            }
+           
+            
+        }
+        else{
+        std::cout << "no se a encontrado el material bibliografico con ese isbn" +  "\n";
+        }
+        return ;
+
+
+    }
+
+
+
 
 }
 
