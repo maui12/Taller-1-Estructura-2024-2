@@ -71,11 +71,35 @@ bool Sistema::agregarMaterialABiblioteca() {
 }
 
 void Sistema::mostrarBiblioteca() {
-    // vosai
+    if(sizeBiblioteca == 0) {
+		std::cout << "No hay material bibliografico \n";
+        return;
+	}
+	for(int i = 0 ; i < sizeBiblioteca; i++) {
+		std::cout << biblioteca[i]->mostrarInformacion()  + "\n";
+	}
 
 }
 
 bool Sistema::buscarMaterial() {
+
+    std::cout << "Ingrese el isbn del material bibliografico :" + "\n";
+    std::string isbn;
+    std::cin >> isbn;
+
+    for(int i = 0 ; i < sizeBiblioteca ; i++){
+        if(biblioteca[i] -> getIsbn == isbn){
+            return true;
+        }
+        return false;
+
+
+    }
+
+
+
+
+
 
 }
 
