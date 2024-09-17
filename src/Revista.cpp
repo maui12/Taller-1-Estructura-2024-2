@@ -24,7 +24,7 @@ void Revista::setMesPublicacion(std::string mesPublicacion) {
 }
 
 std::string Revista::mostrarInformacion() {
-	return "";
+	return "[ ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" ] \n"+"	N° edicion = "+numeroEdicion+"\n	Mes de publicacion = "+mesPublicacion;
 }
 
 Revista::~Revista() {

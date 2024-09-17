@@ -24,7 +24,7 @@ void Libro::setResumen(std::string resumen) {
 }
 
 std::string Libro::mostrarInformacion() {
-	return "";
+	return "[ ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" ] \n"+"	Resumen = "+resumen+"\n	Fecha de publicacion = "+fechaPublicacion;
 }
 
 Libro::~Libro() {
