@@ -100,21 +100,22 @@ void Sistema::agregarMaterialABiblioteca() {
 }
 
 void Sistema::mostrarBiblioteca() {
-	if(sizeBiblioteca == 0) {
+    if(sizeBiblioteca == 0) {
 		std::cout << "No hay material bibliografico \n";
-		return;
+        return;
 	}
 	for(int i = 0 ; i < sizeBiblioteca; i++) {
 		std::cout << biblioteca[i]->mostrarInformacion()  + "\n";
 	}
+
 }
 
 bool Sistema::buscarMaterial() {
-	std::cout << "Ingrese el isbn del material bibliografico :" + "\n";
+	std::cout << "Ingrese el isbn del material bibliografico: \n";
 	std::string isbn;
 	std::cin >> isbn;
 	for(int i = 0 ; i < sizeBiblioteca ; i++){
-		if(biblioteca[i] -> getIsbn == isbn){
+		if(biblioteca[i] -> getIsbn() == isbn){
 			return true;
 		}
 		return false;
@@ -122,20 +123,20 @@ bool Sistema::buscarMaterial() {
 }
 
 void Sistema::prestarMaterial() {
-    std::cout << "Ingrese el isbn del material bibliografico que quieres pedir prestado :" + "\n";
+    std::cout << "Ingrese el isbn del material bibliografico que quieres pedir prestado: \n";
     std::string isbn;
     std::cin >> isbn;
 
-    std::cout << "Ingrese el nombre de la persona  que quiere pedir prestado el material bibliografico :" + "\n";
+    std::cout << "Ingrese el nombre de la persona  que quiere pedir prestado el material bibliografico : \n";
     std::string nombre;
     std::cin >> nombre;
 
     for(int i = 0 ; i < sizeBiblioteca ; i++){
-        if(biblioteca[i] -> getIsbn == isbn){
+        if(biblioteca[i] -> getIsbn() == isbn){
             biblioteca[i] -> setPrestado(1);
             for(int i = 0 ; i < sizeUsuario ; i++){
-                if(usuarios[i]-> getNombre == nombre){
-                    usuarios[i] -> prestarMaterial(biblioteca[i]);
+                if(usuarios[i]-> getNombre() == nombre){
+                    usuarios[i]->prestarMaterial(biblioteca[i]);
                     std::cout << "Se a prestado el material bibliografico de isbn " + isbn + "con autor del prestamo a " + nombre +  "\n";
                 }
                 else{
@@ -147,7 +148,7 @@ void Sistema::prestarMaterial() {
 
         }
         else{
-        std::cout << "No se ha encontrado el material bibliografico con ese isbn" +  "\n";
+        std::cout << "No se ha encontrado el material bibliografico con ese isbn: \n";
         }
         return ;
     }

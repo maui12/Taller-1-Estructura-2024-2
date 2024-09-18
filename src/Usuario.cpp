@@ -30,7 +30,7 @@ void Usuario::prestarMaterial(MaterialBibliografico* material) {
 			return;
 		}
 	}
-	std::cout << "tiene el maximo numero de materiales prestados" + "\n";
+	std::cout << "Tiene el maximo numero de materiales prestados" << std::endl;
 	return;
 }
 
