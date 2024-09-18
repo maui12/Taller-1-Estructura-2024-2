@@ -3,7 +3,7 @@
 
 class MaterialBibliografico {
 
-	private:
+	protected:
 		std::string nombre;
 		std::string autor;
 		std::string isbn;

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "../include/Sistema.h"
 
 using namespace std;
@@ -7,6 +8,12 @@ using namespace std;
 bool menu(Sistema* sistema) {
 
    	int entrada = 0;
+
+   	if (cin.fail()) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		return true;
+	}
 
    	cout<<"---------------------------------"<<endl;
    	cout<<":    Gestion de Biblioteca	:"<<endl;
@@ -23,6 +30,14 @@ bool menu(Sistema* sistema) {
    	cout<<"-Ingrese una opcion: "<<endl;
 
    	cin>>entrada;
+
+   	if (cin.fail()) {
+		cerr << "Opcion invalida. Ingrese un numero." << endl;
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		return true;
+	}
+
 
    	switch(entrada) {
 
@@ -53,7 +68,7 @@ bool menu(Sistema* sistema) {
    	   	return false;
 
    	default:
-   		cerr<<"Opcion invalida. Ingrese otra opcion "<<endl;
+   		//cerr<<"Opcion invalida. Ingrese otra opcion "<<endl;
    		break;
    	}
    	return true;

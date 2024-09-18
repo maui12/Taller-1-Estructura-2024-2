@@ -23,8 +23,15 @@ void Usuario::setId(std::string id) {
 	this -> id = id;
 }
 
-void Usuario::prestarMaterial() {
-
+void Usuario::prestarMaterial(MaterialBibliografico* material) {
+	for(int i = 0 ; i < 5 ; i++){
+		if(materialesPrestados[i] == nullptr){
+			materialesPrestados[i] = material;
+			return;
+		}
+	}
+	std::cout << "tiene el maximo numero de materiales prestados" + "\n";
+	return;
 }
 
 void Usuario::devolverMaterial() {

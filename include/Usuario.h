@@ -14,7 +14,7 @@ class Usuario {
 		void setNombre(std::string nombre);
 		void setId(std::string id);
 
-		void prestarMaterial();
+		void prestarMaterial(MaterialBibliografico* material);
 		void devolverMaterial();
 		void mostrarMaterialesPrestados();
 

@@ -18,7 +18,7 @@ class Sistema {
 		Sistema();
 		void leer();
 
-		bool agregarMaterialABiblioteca();
+		void agregarMaterialABiblioteca();
 		void mostrarBiblioteca();
 		bool buscarMaterial();
 		void prestarMaterial();

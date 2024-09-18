@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "../include/Sistema.h"
 
 
@@ -8,17 +10,43 @@ Sistema::Sistema(){
 }
 
 void Sistema::leer() {
+	std::string nombreArchivo = "Usuarios.txt";
+	std::ifstream archivo(nombreArchivo);
+
+	if (!archivo.is_open()) {
+		std::cerr << "Error al abrir archivo: " << nombreArchivo << std::endl;
+		return;
+	}
+
+	std::string linea;
+	int cont = 0;
+	while (std::getline(archivo, linea)) {
+		std::stringstream ss(linea);
+		std::string id, nombre;
+
+		if (std::getline(ss, id, ',') && std::getline(ss, nombre, ',')) {
+			Usuario* usuario = new Usuario(nombre, id);
+			usuarios[cont] = usuario;
+			sizeUsuario++;
+			cont++;
+		}
+	}
+
+	archivo.close();
+
+	nombreArchivo = "MaterialesBibliograficos.txt";
 
 }
 
-bool Sistema::agregarMaterialABiblioteca() {
+
+void Sistema::agregarMaterialABiblioteca() {
     std::cout << "===== Agregar Material ===== \nSeleccione el tipo de material: \n1)Libro 2)Revista" << std::endl;
     int tipo;
     std::cin >> tipo;
 
     if (tipo != 1 && tipo != 2) {
         std::cerr << "Dato invalido" << std::endl;
-        return false;
+        return;
     }
 
     std::cout << "-Ingrese nombre del nuevo Material: " << std::endl;
@@ -64,22 +92,65 @@ bool Sistema::agregarMaterialABiblioteca() {
 
     if (material == nullptr) {
         std::cerr << "Error: No se pudo crear el material." << std::endl;
-        return false;
+        return;
     }
 
-    return agregarAListaBiblioteca(material);
+    agregarAListaBiblioteca(material);
+    return;
 }
 
 void Sistema::mostrarBiblioteca() {
-    // vosai
-
+	if(sizeBiblioteca == 0) {
+		std::cout << "No hay material bibliografico \n";
+		return;
+	}
+	for(int i = 0 ; i < sizeBiblioteca; i++) {
+		std::cout << biblioteca[i]->mostrarInformacion()  + "\n";
+	}
 }
 
 bool Sistema::buscarMaterial() {
-
+	std::cout << "Ingrese el isbn del material bibliografico :" + "\n";
+	std::string isbn;
+	std::cin >> isbn;
+	for(int i = 0 ; i < sizeBiblioteca ; i++){
+		if(biblioteca[i] -> getIsbn == isbn){
+			return true;
+		}
+		return false;
+	}
 }
 
 void Sistema::prestarMaterial() {
+    std::cout << "Ingrese el isbn del material bibliografico que quieres pedir prestado :" + "\n";
+    std::string isbn;
+    std::cin >> isbn;
+
+    std::cout << "Ingrese el nombre de la persona  que quiere pedir prestado el material bibliografico :" + "\n";
+    std::string nombre;
+    std::cin >> nombre;
+
+    for(int i = 0 ; i < sizeBiblioteca ; i++){
+        if(biblioteca[i] -> getIsbn == isbn){
+            biblioteca[i] -> setPrestado(1);
+            for(int i = 0 ; i < sizeUsuario ; i++){
+                if(usuarios[i]-> getNombre == nombre){
+                    usuarios[i] -> prestarMaterial(biblioteca[i]);
+                    std::cout << "Se a prestado el material bibliografico de isbn " + isbn + "con autor del prestamo a " + nombre +  "\n";
+                }
+                else{
+                    std::cout << "No se ha encontrado el usuario \n";
+                    return;
+                }
+            }
+
+
+        }
+        else{
+        std::cout << "No se ha encontrado el material bibliografico con ese isbn" +  "\n";
+        }
+        return ;
+    }
 
 }
 
