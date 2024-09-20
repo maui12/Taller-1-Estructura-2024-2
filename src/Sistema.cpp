@@ -35,8 +35,105 @@ void Sistema::leer() {
 	archivo.close();
 
 	nombreArchivo = "MaterialesBibliograficos.txt";
+	    archivo.open(nombreArchivo);
 
+	    if (!archivo.is_open()) {
+	        std::cerr << "Error al abrir archivo " << nombreArchivo << std::endl;
+	        return;
+	    }
+
+	    cont = 0;
+	    while (std::getline(archivo, linea)) {
+	        std::stringstream ss(linea);
+	        std::string tipo, isbn, nombre, autor, campo1, campo2;
+	        int prestado;
+
+	        if (std::getline(ss, tipo, ',') && std::getline(ss, isbn, ',') &&
+	            std::getline(ss, nombre, ',') && std::getline(ss, autor, ',') &&
+	            std::getline(ss, campo1, ',') && std::getline(ss, campo2, ',')) {
+
+	            if (tipo == "Libro") {
+	                MaterialBibliografico* libro = new Libro(nombre, autor, isbn, 0, campo1, campo2);
+	                biblioteca[cont] = libro;
+	            }
+	            else if (tipo == "Revista") {
+	                MaterialBibliografico* revista = new Revista(nombre, autor, isbn, 0, campo1, campo2);
+	                biblioteca[cont] = revista;
+	            }
+	            sizeBiblioteca++;
+	            cont++;
+	        }
+	    }
+
+	    archivo.close();
+
+	    nombreArchivo = "UsuariosMateriales.txt";
+	    archivo.open(nombreArchivo);
+
+	    if (!archivo.is_open()) {
+	        std::cerr << "Error al abrir archivo: " << nombreArchivo << std::endl;
+	        return;
+	    }
+
+	    while (std::getline(archivo, linea)) {
+	        std::stringstream ss(linea);
+	        std::string idUsuario, isbn;
+
+	        if (std::getline(ss, idUsuario, ',') && std::getline(ss, isbn, ',')) {
+	            // Buscar el usuario correspondiente
+	            Usuario* usuario = nullptr;
+	            for (int i = 0; i < sizeUsuario; i++) {
+	                if (usuarios[i]->getId() == idUsuario) {
+	                    usuario = usuarios[i];
+	                    break;
+	                }
+	            }
+
+	            if (usuario == nullptr) {
+	                std::cerr << "Usuario con ID " << idUsuario << " no encontrado." << std::endl;
+	                continue;
+	            }
+
+	            // Verificar que el usuario no haya alcanzado el límite de 5 materiales
+	            bool tieneEspacio = false;
+	            MaterialBibliografico** materialesPrestados = usuario->getMaterialesPrestados();
+	            for (int i = 0; i < 5; i++) {
+	                if (materialesPrestados[i] == nullptr) {
+	                    tieneEspacio = true;
+	                    break;
+	                }
+	            }
+
+	            if (!tieneEspacio) {
+	                std::cerr << "Usuario " << idUsuario << " ya tiene el máximo de 5 materiales prestados." << std::endl;
+	                continue;
+	            }
+
+	            // Buscar el material en la biblioteca por ISBN
+	            MaterialBibliografico* material = nullptr;
+	            for (MaterialBibliografico* mat : biblioteca) {
+	                if (mat->getIsbn() == isbn) {
+	                    material = mat;
+	                    break;
+	                }
+	            }
+
+	            if (material == nullptr) {
+	                std::cerr << "Material con ISBN " << isbn << " no encontrado." << std::endl;
+	                continue;
+	            }
+
+	            // Actualizar el estado del material a prestado
+	            material->setPrestado(1);
+
+	            // Asignar el material al usuario
+	            usuario->prestarMaterial(material);
+	        }
+	    }
+
+	    archivo.close();
 }
+
 
 
 void Sistema::agregarMaterialABiblioteca() {

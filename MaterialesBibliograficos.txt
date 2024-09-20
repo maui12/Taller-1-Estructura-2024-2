@@ -1,0 +1,3 @@
+Libro,1,El Principito,Antoine de Saint-Exupéry,1943,Resumen del libro
+Revista,2,Ciencia Hoy,John Doe,10,Septiembre
+Libro,3,1984,George Orwell,1949,Distopía sobre el control totalitario

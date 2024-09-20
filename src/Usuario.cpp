@@ -42,6 +42,10 @@ void Usuario::mostrarMaterialesPrestados() {
 
 }
 
+MaterialBibliografico** Usuario::getMaterialesPrestados() {
+    return materialesPrestados;
+}
+
 std::string Usuario::toString() {
 	return "[ ID = "+id+"  Nombre = "+nombre+" ]";
 }
