@@ -29,6 +29,7 @@ class Sistema {
 		bool eliminarUsuario();
 
 		void guardarCambios();
+		void liberarMemoria();
 
 		bool agregarAListaBiblioteca(MaterialBibliografico* material);
 		void agregarAListaUsuarios(Usuario* usuario);

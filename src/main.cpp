@@ -23,9 +23,10 @@ bool menu(Sistema* sistema) {
    	cout<<"3.- Buscar Material"<<endl;
    	cout<<"4.- Prestar Material"<<endl;
    	cout<<"5.- Registrar un nuevo Usuario"<<endl;
-   	cout<<"6.- Buscar Usuario"<<endl;
-   	cout<<"7.- Eliminar Usuario"<<endl;
-   	cout<<"8.- Guardar cambios y salir"<<endl;
+   	cout<<"6.- Ver Usuarios"<<endl;
+   	cout<<"7.- Buscar Usuario"<<endl;
+   	cout<<"8.- Eliminar Usuario"<<endl;
+   	cout<<"9.- Guardar cambios y salir"<<endl;
    	cout<<"----------------------------------"<<endl;
    	cout<<"-Ingrese una opcion: "<<endl;
 
@@ -46,7 +47,6 @@ bool menu(Sistema* sistema) {
    		break;
    	case 2:
    		sistema->mostrarBiblioteca();
-   		sistema->mostrarUsuarios();
    		break;
    	case 3:
    		sistema->buscarMaterial();
@@ -58,12 +58,15 @@ bool menu(Sistema* sistema) {
    		sistema->agregarUsuario();
    		break;
    	case 6:
-   	   	sistema->buscarUsuario();
+   	   	sistema->mostrarUsuarios();
    	   	break;
    	case 7:
-   	   	sistema->eliminarUsuario();
+   	   	sistema->buscarUsuario();
    	   	break;
    	case 8:
+   	   	sistema->eliminarUsuario();
+   	   	break;
+   	case 9:
    	   	sistema->guardarCambios();
    	   	return false;
 

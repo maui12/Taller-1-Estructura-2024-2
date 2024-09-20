@@ -61,6 +61,15 @@ void Sistema::agregarMaterialABiblioteca() {
     std::string isbn;
     std::cin >> isbn;
 
+    if(sizeBiblioteca != 0) {
+		for(int i = 0; i < sizeBiblioteca; i++) {
+			if(biblioteca[i]->getIsbn() == isbn) {
+				std::cerr << "Este ISBN ya existe" << std::endl;
+				return;
+			}
+		}
+    }
+
     MaterialBibliografico* material = nullptr;
 
     switch (tipo) {
@@ -123,29 +132,34 @@ bool Sistema::buscarMaterial() {
 }
 
 void Sistema::prestarMaterial() {
+
+	if(sizeBiblioteca == 0) {
+        std::cerr << "No hay materiales para prestar" << std::endl;
+        return;
+	}
     std::cout << "Ingrese el isbn del material bibliografico que quieres pedir prestado: \n";
+    mostrarBiblioteca();
     std::string isbn;
     std::cin >> isbn;
 
-    std::cout << "Ingrese el nombre de la persona  que quiere pedir prestado el material bibliografico : \n";
-    std::string nombre;
-    std::cin >> nombre;
+    std::cout << "Ingrese el ID de la persona que quiere pedir prestado el material bibliografico : \n";
+    mostrarUsuarios();
+    std::string id;
+    std::cin >> id;
 
     for(int i = 0 ; i < sizeBiblioteca ; i++){
         if(biblioteca[i] -> getIsbn() == isbn){
             biblioteca[i] -> setPrestado(1);
             for(int i = 0 ; i < sizeUsuario ; i++){
-                if(usuarios[i]-> getNombre() == nombre){
+                if(usuarios[i]-> getId() == id){
                     usuarios[i]->prestarMaterial(biblioteca[i]);
-                    std::cout << "Se a prestado el material bibliografico de isbn " + isbn + "con autor del prestamo a " + nombre +  "\n";
+                    std::cout << "Se ha prestado el material bibliografico de ISBN " + isbn + " con autor del prestamo a ID: "+id+" Nombre: "+usuarios[i]->getNombre() +"\n";
                 }
                 else{
                     std::cout << "No se ha encontrado el usuario \n";
                     return;
                 }
             }
-
-
         }
         else{
         std::cout << "No se ha encontrado el material bibliografico con ese isbn: \n";
@@ -254,4 +268,8 @@ void Sistema::mostrarUsuarios() {
 	for(int i = 0 ; i < sizeUsuario; i++) {
 		std::cout << usuarios[i]->toString() + "\n";
 	}
+}
+
+void Sistema::liberarMemoria() {
+
 }

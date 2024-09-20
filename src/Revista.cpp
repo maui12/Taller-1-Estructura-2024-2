@@ -24,7 +24,15 @@ void Revista::setMesPublicacion(std::string mesPublicacion) {
 }
 
 std::string Revista::mostrarInformacion() {
-	return "[ ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" ] \n"+"	N° edicion = "+numeroEdicion+"\n	Mes de publicacion = "+mesPublicacion;
+	if(prestado == 0) {
+		return "[ Revista: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = Prestado = NO ]\n"+"-N° edicion = "+numeroEdicion+"\n-Mes de publicacion = "+mesPublicacion;
+
+	}
+	else if(prestado == 1) {
+		return "[ Revista: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = Prestado = SI ]\n"+"-N° edicion = "+numeroEdicion+"\n-Mes de publicacion = "+mesPublicacion;
+
+	}
+	return "[ Revista: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = "+std::to_string(prestado)+" ]\n"+"-N° edicion = "+numeroEdicion+"\n-Mes de publicacion = "+mesPublicacion;
 }
 
 Revista::~Revista() {
