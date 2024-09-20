@@ -27,6 +27,7 @@ bool menu(Sistema* sistema) {
    	cout<<"7.- Buscar Usuario"<<endl;
    	cout<<"8.- Eliminar Usuario"<<endl;
    	cout<<"9.- Guardar cambios y salir"<<endl;
+	cout<<"10.- Devolver material"<<endl;
    	cout<<"----------------------------------"<<endl;
    	cout<<"-Ingrese una opcion: "<<endl;
 
@@ -69,7 +70,9 @@ bool menu(Sistema* sistema) {
    	case 9:
    	   	sistema->guardarCambios();
    	   	return false;
-
+	case 10:
+		sistema -> devolverMaterial();
+		break;
    	default:
    		//cerr<<"Opcion invalida. Ingrese otra opcion "<<endl;
    		break;

@@ -39,6 +39,10 @@ void Usuario::devolverMaterial() {
 }
 
 void Usuario::mostrarMaterialesPrestados() {
+	for(int i = 0; i < 5; i++){
+		std::cout << materialesPrestados[i] -> mostrarInformacion() + " \n";
+	}
+	return;
 
 }
 
@@ -48,4 +52,8 @@ MaterialBibliografico** Usuario::getMaterialesPrestados() {
 
 std::string Usuario::toString() {
 	return "[ ID = "+id+"  Nombre = "+nombre+" ]";
+}
+
+MaterialBibliografico** Usuario::getMaterialesPrestados() {
+    return materialesPrestados;
 }

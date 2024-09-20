@@ -250,7 +250,7 @@ void Sistema::prestarMaterial() {
             for(int i = 0 ; i < sizeUsuario ; i++){
                 if(usuarios[i]-> getId() == id){
                     usuarios[i]->prestarMaterial(biblioteca[i]);
-                    std::cout << "Se ha prestado el material bibliografico de ISBN " + isbn + " con autor del prestamo a ID: "+id+" Nombre: "+usuarios[i]->getNombre() +"\n";
+                    std::cout  << "Se ha prestado el material bibliografico de ISBN " + isbn + " con autor del prestamo a ID: "+id+" Nombre: "+usuarios[i]->getNombre() +"\n";
                 }
                 else{
                     std::cout << "No se ha encontrado el usuario \n";
@@ -267,6 +267,36 @@ void Sistema::prestarMaterial() {
 }
 
 void Sistema::devolverMaterial() {
+    
+    mostrarUsuarios();
+    std::cout << "Ingrese el id del usuario que desea devolver el material bibliografico: \n";
+    std::string id;
+    std::cin >> id;
+
+    for ( int i = 0 ; i < sizeUsuario ; i++){
+        if(id == usuarios[i] -> getId()){
+
+            if(usuarios[i] -> getMaterialesPrestados() != nullptr){
+                
+                usuarios[i] -> mostrarMaterialesPrestados();
+                
+                std::cout << "Ingrese el isbn del material bibliografico que desea devolver: \n";
+                std::string isbn;
+                std::cin >> isbn;
+
+                
+            }
+            else{
+                std::cout << "no tiene materiales  \n";
+            }
+            
+        }
+
+
+    }
+
+
+
 
 }
 
@@ -289,6 +319,26 @@ void Sistema::agregarUsuario() {
 }
 
 void Sistema::buscarUsuario() {
+
+    mostrarUsuarios();
+    std::cout << "Ingrese id " << std::endl;
+	std::string id;
+	std::cin >> id;
+
+    for(int i = 0 ; i < sizeUsuario ; i++){
+        if(usuarios[i] -> getId() == id){
+             std::cout << usuarios[i] -> toString() << std::endl;
+            return;
+
+        }
+
+
+    }
+    std::cout << "no hay usuarios con ese id" << std::endl;
+
+
+
+
 
 }
 

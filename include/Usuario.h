@@ -19,6 +19,7 @@ class Usuario {
 		void prestarMaterial(MaterialBibliografico* material);
 		void devolverMaterial();
 		void mostrarMaterialesPrestados();
+		MaterialBibliografico**getMaterialesPrestados();
 
 		std::string toString();
 };
