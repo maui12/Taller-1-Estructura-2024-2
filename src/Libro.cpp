@@ -25,12 +25,12 @@ void Libro::setResumen(std::string resumen) {
 
 std::string Libro::mostrarInformacion() {
 	if(prestado == 0) {
-		return "[ Libro: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = NO ]\n"+"-Resumen = "+resumen+"\n-Fecha de publicacion = "+fechaPublicacion;
+		return "[ Libro: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = NO ]\n"+"-Resumen = "+resumen+"\n-Fecha de publicacion = "+fechaPublicacion+"\n";
 	}
 	else if(prestado = 1) {
-		return "[ Libro: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = SI ]\n"+"-Resumen = "+resumen+"\n-Fecha de publicacion = "+fechaPublicacion;
+		return "[ Libro: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = SI ]\n"+"-Resumen = "+resumen+"\n-Fecha de publicacion = "+fechaPublicacion+"\n";
 	}
-	return "[ Libro: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = "+std::to_string(prestado)+" ]\n"+"-Resumen = "+resumen+"\n-Fecha de publicacion = "+fechaPublicacion;
+	return "[ Libro: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = "+std::to_string(prestado)+" ]\n"+"-Resumen = "+resumen+"\n-Fecha de publicacion = "+fechaPublicacion+"\n";
 }
 
 Libro::~Libro() {

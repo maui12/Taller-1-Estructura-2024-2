@@ -35,103 +35,99 @@ void Sistema::leer() {
 	archivo.close();
 
 	nombreArchivo = "MaterialesBibliograficos.txt";
-	    archivo.open(nombreArchivo);
+	archivo.open(nombreArchivo);
 
-	    if (!archivo.is_open()) {
-	        std::cerr << "Error al abrir archivo " << nombreArchivo << std::endl;
-	        return;
-	    }
+	if (!archivo.is_open()) {
+		std::cerr << "Error al abrir archivo " << nombreArchivo << std::endl;
+		return;
+	}
 
-	    cont = 0;
-	    while (std::getline(archivo, linea)) {
-	        std::stringstream ss(linea);
-	        std::string tipo, isbn, nombre, autor, campo1, campo2;
-	        int prestado;
+	cont = 0;
+	while (std::getline(archivo, linea)) {
+		std::stringstream ss(linea);
+		std::string tipo, isbn, nombre, autor, campo1, campo2;
+		int prestado;
 
-	        if (std::getline(ss, tipo, ',') && std::getline(ss, isbn, ',') &&
-	            std::getline(ss, nombre, ',') && std::getline(ss, autor, ',') &&
-	            std::getline(ss, campo1, ',') && std::getline(ss, campo2, ',')) {
+		if (std::getline(ss, tipo, ',') && std::getline(ss, isbn, ',') &&
+			std::getline(ss, nombre, ',') && std::getline(ss, autor, ',') &&
+			std::getline(ss, campo1, ',') && std::getline(ss, campo2, ',')) {
 
-	            if (tipo == "Libro") {
-	                MaterialBibliografico* libro = new Libro(nombre, autor, isbn, 0, campo1, campo2);
-	                biblioteca[cont] = libro;
-	            }
-	            else if (tipo == "Revista") {
-	                MaterialBibliografico* revista = new Revista(nombre, autor, isbn, 0, campo1, campo2);
-	                biblioteca[cont] = revista;
-	            }
-	            sizeBiblioteca++;
-	            cont++;
-	        }
-	    }
+			if (tipo == "Libro") {
+				MaterialBibliografico* libro = new Libro(nombre, autor, isbn, 0, campo1, campo2);
+				biblioteca[cont] = libro;
+			}
+			else if (tipo == "Revista") {
+				MaterialBibliografico* revista = new Revista(nombre, autor, isbn, 0, campo1, campo2);
+				biblioteca[cont] = revista;
+			}
+			sizeBiblioteca++;
+			cont++;
+		}
+	}
 
-	    archivo.close();
+	archivo.close();
 
-	    nombreArchivo = "UsuariosMateriales.txt";
-	    archivo.open(nombreArchivo);
+	nombreArchivo = "UsuariosMateriales.txt";
+	archivo.open(nombreArchivo);
 
-	    if (!archivo.is_open()) {
-	        std::cerr << "Error al abrir archivo: " << nombreArchivo << std::endl;
-	        return;
-	    }
+	if (!archivo.is_open()) {
+		std::cerr << "Error al abrir archivo: " << nombreArchivo << std::endl;
+		return;
+	}
 
-	    while (std::getline(archivo, linea)) {
-	        std::stringstream ss(linea);
-	        std::string idUsuario, isbn;
+	while (std::getline(archivo, linea)) {
+		std::stringstream ss(linea);
+		std::string idUsuario, isbn;
 
-	        if (std::getline(ss, idUsuario, ',') && std::getline(ss, isbn, ',')) {
-	            // Buscar el usuario correspondiente
-	            Usuario* usuario = nullptr;
-	            for (int i = 0; i < sizeUsuario; i++) {
-	                if (usuarios[i]->getId() == idUsuario) {
-	                    usuario = usuarios[i];
-	                    break;
-	                }
-	            }
+		if (std::getline(ss, idUsuario, ',') && std::getline(ss, isbn, ',')) {
 
-	            if (usuario == nullptr) {
-	                std::cerr << "Usuario con ID " << idUsuario << " no encontrado." << std::endl;
-	                continue;
-	            }
+			Usuario* usuario = nullptr;
+			for (int i = 0; i < sizeUsuario; i++) {
+				if (usuarios[i]->getId() == idUsuario) {
+					usuario = usuarios[i];
+					break;
+				}
+			}
 
-	            // Verificar que el usuario no haya alcanzado el límite de 5 materiales
-	            bool tieneEspacio = false;
-	            MaterialBibliografico** materialesPrestados = usuario->getMaterialesPrestados();
-	            for (int i = 0; i < 5; i++) {
-	                if (materialesPrestados[i] == nullptr) {
-	                    tieneEspacio = true;
-	                    break;
-	                }
-	            }
+			if (usuario == nullptr) {
+				std::cerr << "Usuario con ID " << idUsuario << " no encontrado." << std::endl;
+				continue;
+			}
 
-	            if (!tieneEspacio) {
-	                std::cerr << "Usuario " << idUsuario << " ya tiene el máximo de 5 materiales prestados." << std::endl;
-	                continue;
-	            }
+			//verificar que el usuario no tenga 5 materiales
+			bool tieneEspacio = false;
+			MaterialBibliografico** materialesPrestados = usuario->getMaterialesPrestados();
+			for (int i = 0; i < 5; i++) {
+				if (materialesPrestados[i] == nullptr) {
+					tieneEspacio = true;
+					break;
+				}
+			}
 
-	            // Buscar el material en la biblioteca por ISBN
-	            MaterialBibliografico* material = nullptr;
-	            for (MaterialBibliografico* mat : biblioteca) {
-	                if (mat->getIsbn() == isbn) {
-	                    material = mat;
-	                    break;
-	                }
-	            }
+			if (!tieneEspacio) {
+				std::cerr << "Usuario " << idUsuario << " ya tiene el maximo de 5 materiales prestados." << std::endl;
+			}
 
-	            if (material == nullptr) {
-	                std::cerr << "Material con ISBN " << isbn << " no encontrado." << std::endl;
-	                continue;
-	            }
+			//buscar el material por isbn
+			MaterialBibliografico* material = nullptr;
+			for (MaterialBibliografico* mat : biblioteca) {
+				if (mat->getIsbn() == isbn) {
+					material = mat;
+					break;
+				}
+			}
 
-	            // Actualizar el estado del material a prestado
-	            material->setPrestado(1);
+			if (material == nullptr) {
+				std::cerr << "Material con ISBN " << isbn << " no encontrado." << std::endl;
+				continue;
+			}
 
-	            // Asignar el material al usuario
-	            usuario->prestarMaterial(material);
-	        }
-	    }
+			material->setPrestado(1);
+			usuario->prestarMaterial(material);
+		}
+	}
 
-	    archivo.close();
+	archivo.close();
 }
 
 
@@ -197,7 +193,7 @@ void Sistema::agregarMaterialABiblioteca() {
     }
 
     if (material == nullptr) {
-        std::cerr << "Error: No se pudo crear el material." << std::endl;
+        std::cerr << "No se pudo crear el material." << std::endl;
         return;
     }
 
@@ -222,10 +218,11 @@ bool Sistema::buscarMaterial() {
 	std::cin >> isbn;
 	for(int i = 0 ; i < sizeBiblioteca ; i++){
 		if(biblioteca[i] -> getIsbn() == isbn){
+			std::cout << biblioteca[i]->mostrarInformacion() << std::endl;
 			return true;
 		}
-		return false;
 	}
+	std::cerr << "No se encontro material con ese isbn" << std::endl;
 }
 
 void Sistema::prestarMaterial() {
@@ -239,30 +236,32 @@ void Sistema::prestarMaterial() {
     std::string isbn;
     std::cin >> isbn;
 
-    std::cout << "Ingrese el ID de la persona que quiere pedir prestado el material bibliografico : \n";
-    mostrarUsuarios();
-    std::string id;
-    std::cin >> id;
-
     for(int i = 0 ; i < sizeBiblioteca ; i++){
-        if(biblioteca[i] -> getIsbn() == isbn){
-            biblioteca[i] -> setPrestado(1);
-            for(int i = 0 ; i < sizeUsuario ; i++){
-                if(usuarios[i]-> getId() == id){
-                    usuarios[i]->prestarMaterial(biblioteca[i]);
-                    std::cout  << "Se ha prestado el material bibliografico de ISBN " + isbn + " con autor del prestamo a ID: "+id+" Nombre: "+usuarios[i]->getNombre() +"\n";
-                }
-                else{
-                    std::cout << "No se ha encontrado el usuario \n";
-                    return;
-                }
-            }
-        }
-        else{
-        std::cout << "No se ha encontrado el material bibliografico con ese isbn: \n";
-        }
-        return ;
+    	if(biblioteca[i] -> getIsbn() == isbn && biblioteca[i]->getPrestado() == 1) {
+    		std::cerr << "El material de ISBN "+isbn+" ya se encuentra prestado\n";
+    		    return;
+    	}
+    	else if(biblioteca[i] -> getIsbn() == isbn && biblioteca[i]->getPrestado() == 0){
+    	    std::cout << "Ingrese el ID de la persona que quiere pedir prestado el material bibliografico : \n";
+    	    mostrarUsuarios();
+    	    std::string id;
+    	    std::cin >> id;
+			for(int j = 0 ; j < sizeUsuario ; j++){
+				if(usuarios[j]-> getId() == id){
+					biblioteca[i] -> setPrestado(1);
+					usuarios[j]->prestarMaterial(biblioteca[i]);
+					usuarios[j]->setSizeMaterialesPrestados(usuarios[j]->getSizeMaterialesPrestados() + 1);
+					std::cout  << "Se ha prestado el material bibliografico de ISBN " + isbn + " con autor del prestamo a ID: "+id+" Nombre: "+usuarios[i]->getNombre() +"\n";
+					return;
+				}
+			}
+			std::cerr << "No se ha encontrado el usuario \n";
+			return;
+
+		}
     }
+    std::cerr << "No se ha encontrado el material bibliografico con ese isbn: "+isbn+"\n";
+    return;
 
 }
 
@@ -276,7 +275,7 @@ void Sistema::devolverMaterial() {
     for ( int i = 0 ; i < sizeUsuario ; i++){
         if(id == usuarios[i] -> getId()){
 
-            if(usuarios[i] -> getMaterialesPrestados() != nullptr){
+            if(usuarios[i] -> getSizeMaterialesPrestados() != 0){
                 
                 usuarios[i] -> mostrarMaterialesPrestados();
                 
@@ -284,20 +283,31 @@ void Sistema::devolverMaterial() {
                 std::string isbn;
                 std::cin >> isbn;
 
-                
+                for(int j = 0; j < usuarios[i]->getSizeMaterialesPrestados(); j++) {
+                	MaterialBibliografico** materialesUsuario = usuarios[i]->getMaterialesPrestados();
+                	if(materialesUsuario[j]->getIsbn() == isbn) {
+                		materialesUsuario[j]->setPrestado(0);
+                		std::cout << "El material " << materialesUsuario[j]->getNombre() << " ha sido devuelto  \n";
+
+						for (int k = j; k < 4; k++) {
+							materialesUsuario[k] = materialesUsuario[k + 1];
+						}
+						materialesUsuario[4] = nullptr;
+						usuarios[i]->setSizeMaterialesPrestados(usuarios[i]->getSizeMaterialesPrestados()-1);
+                		return;
+                	}
+                }
+                std::cerr << "El ISBN "+isbn+" no fue encontrado\n";
+                return;
             }
             else{
-                std::cout << "no tiene materiales  \n";
+                std::cerr << "el usuario no tiene materiales prestados \n";
+                return;
             }
-            
         }
-
-
     }
-
-
-
-
+	std::cerr << "No se ha encontrado el usuario \n";
+	return;
 }
 
 void Sistema::agregarUsuario() {
@@ -336,10 +346,6 @@ void Sistema::buscarUsuario() {
     }
     std::cout << "no hay usuarios con ese id" << std::endl;
 
-
-
-
-
 }
 
 bool Sistema::eliminarUsuario() {
@@ -354,23 +360,24 @@ bool Sistema::eliminarUsuario() {
     std::string id;
     std::cin >> id;
 
-    // buscar usuario por id
+    //buscar usuario por id
     int index = -1;
-    for (int i = 0; i < sizeUsuario; i++) {
+    for(int i = 0; i < sizeUsuario; i++ ) {
         if (usuarios[i]->getId() == id) {
             index = i;
             break;
         }
     }
 
-    if (index == -1) {
+    if(index == -1) {
         std::cerr << "Usuario con ID " << id << " no encontrado \n";
         return false;
     }
 
+    //se desasocian los materiales en el destructor de usuario
     delete usuarios[index];
 
-    // mover elementos a la izquierda
+    //mover elementos a la izquierda
     for (int i = index; i < sizeUsuario - 1; i++) {
         usuarios[i] = usuarios[i + 1];
     }

@@ -1,3 +1,9 @@
 Libro,1,El Principito,Antoine de Saint-Exupéry,1943,Resumen del libro
 Revista,2,Ciencia Hoy,John Doe,10,Septiembre
 Libro,3,1984,George Orwell,1949,Distopía sobre el control totalitario
+Libro,4,El Quijote,Miguel de Cervantes,1605,Una historia de aventuras y fantasía.
+Revista,5,National Geographic,Editorial NG,2024,45,Septiembre
+Libro,6,Cien años de soledad,Gabriel García Márquez,1967,Crónica de la familia Buendía en Macondo.
+Libro,7,El señor de los anillos,J.R.R. Tolkien,1954,Una épica historia de la Tierra Media.
+Revista,8,Scientific American,Editorial SA,2023,78,Octubre
+Libro,9,Fahrenheit 451,Ray Bradbury,1953,Una distopía sobre un futuro sin libros.

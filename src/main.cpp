@@ -22,12 +22,12 @@ bool menu(Sistema* sistema) {
    	cout<<"2.- Mostrar Material disponible"<<endl;
    	cout<<"3.- Buscar Material"<<endl;
    	cout<<"4.- Prestar Material"<<endl;
-   	cout<<"5.- Registrar un nuevo Usuario"<<endl;
-   	cout<<"6.- Ver Usuarios"<<endl;
-   	cout<<"7.- Buscar Usuario"<<endl;
-   	cout<<"8.- Eliminar Usuario"<<endl;
-   	cout<<"9.- Guardar cambios y salir"<<endl;
-	cout<<"10.- Devolver material"<<endl;
+	cout<<"5.- Devolver material"<<endl;
+   	cout<<"6.- Registrar un nuevo Usuario"<<endl;
+   	cout<<"7.- Ver Usuarios"<<endl;
+   	cout<<"8.- Buscar Usuario"<<endl;
+   	cout<<"9.- Eliminar Usuario"<<endl;
+   	cout<<"10.- Guardar cambios y salir"<<endl;
    	cout<<"----------------------------------"<<endl;
    	cout<<"-Ingrese una opcion: "<<endl;
 
@@ -55,24 +55,24 @@ bool menu(Sistema* sistema) {
    	case 4:
 		sistema->prestarMaterial();
    		break;
-   	case 5:
-   		sistema->agregarUsuario();
-   		break;
-   	case 6:
-   	   	sistema->mostrarUsuarios();
-   	   	break;
-   	case 7:
-   	   	sistema->buscarUsuario();
-   	   	break;
-   	case 8:
-   	   	sistema->eliminarUsuario();
-   	   	break;
-   	case 9:
-   	   	sistema->guardarCambios();
-   	   	return false;
-	case 10:
+	case 5:
 		sistema -> devolverMaterial();
 		break;
+   	case 6:
+   		sistema->agregarUsuario();
+   		break;
+   	case 7:
+   	   	sistema->mostrarUsuarios();
+   	   	break;
+   	case 8:
+   	   	sistema->buscarUsuario();
+   	   	break;
+   	case 9:
+   	   	sistema->eliminarUsuario();
+   	   	break;
+   	case 10:
+   	   	sistema->guardarCambios();
+   	   	return false;
    	default:
    		//cerr<<"Opcion invalida. Ingrese otra opcion "<<endl;
    		break;

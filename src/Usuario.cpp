@@ -5,6 +5,10 @@
 Usuario::Usuario(std::string nombre, std::string id) {
 	this-> nombre = nombre;
 	this-> id = id;
+	this-> sizeMaterialesPrestados = 0;
+	for(int i = 0; i<5;i++) {
+		materialesPrestados[i] = nullptr;
+	}
 }
 
 std::string Usuario::getNombre() {
@@ -27,6 +31,7 @@ void Usuario::prestarMaterial(MaterialBibliografico* material) {
 	for(int i = 0 ; i < 5 ; i++){
 		if(materialesPrestados[i] == nullptr){
 			materialesPrestados[i] = material;
+			sizeMaterialesPrestados++;
 			return;
 		}
 	}
@@ -39,15 +44,11 @@ void Usuario::devolverMaterial() {
 }
 
 void Usuario::mostrarMaterialesPrestados() {
-	for(int i = 0; i < 5; i++){
+	for(int i = 0; i < sizeMaterialesPrestados; i++){
 		std::cout << materialesPrestados[i] -> mostrarInformacion() + " \n";
 	}
 	return;
 
-}
-
-MaterialBibliografico** Usuario::getMaterialesPrestados() {
-    return materialesPrestados;
 }
 
 std::string Usuario::toString() {
@@ -56,4 +57,21 @@ std::string Usuario::toString() {
 
 MaterialBibliografico** Usuario::getMaterialesPrestados() {
     return materialesPrestados;
+}
+
+int Usuario::getSizeMaterialesPrestados() {
+	return sizeMaterialesPrestados;
+}
+
+void Usuario::setSizeMaterialesPrestados(int sizeMaterialesPrestados) {
+	this->sizeMaterialesPrestados = sizeMaterialesPrestados;
+}
+
+Usuario::~Usuario() {
+    for (int i = 0; i < 5; i++) {
+        if (materialesPrestados[i] != nullptr) {
+            materialesPrestados[i]->setPrestado(0);
+            materialesPrestados[i] = nullptr;
+        }
+    }
 }
