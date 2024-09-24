@@ -14,6 +14,7 @@ class Revista: public MaterialBibliografico {
 		void setNumeroEdicion(std::string numeroEdicion);
 		void setMesPublicacion(std::string mesPublicacion);
 		std::string mostrarInformacion();
+	    std::string guardarInformacion() const override;
 		~Revista();
 
 

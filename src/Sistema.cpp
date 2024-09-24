@@ -388,7 +388,40 @@ bool Sistema::eliminarUsuario() {
 }
 
 void Sistema::guardarCambios() {
+	std::ofstream archivoUsuarios("Usuarios.txt");
+	if (archivoUsuarios.is_open()) {
+		for (int i = 0; i < sizeUsuario; ++i) {
+			archivoUsuarios << usuarios[i]->getId() << "," << usuarios[i]->getNombre() << "\n";
+		}
+		archivoUsuarios.close();
+	} else {
+		std::cerr << "Error al abrir el archivo de Usuarios" << std::endl;
+	}
 
+	std::ofstream archivoMateriales("MaterialesBibliograficos.txt");
+	if (archivoMateriales.is_open()) {
+		for (int i = 0; i < sizeBiblioteca; ++i) {
+			archivoMateriales << biblioteca[i]->guardarInformacion();
+		}
+		archivoMateriales.close();
+	} else {
+		std::cerr << "Error al abrir el archivo de MaterialesBibliograficos" << std::endl;
+	}
+
+	std::ofstream archivoUsuariosMateriales("UsuariosMateriales.txt");
+	if (archivoUsuariosMateriales.is_open()) {
+		for (int i = 0; i < sizeUsuario; ++i) {
+			MaterialBibliografico** materialesPrestados = usuarios[i]->getMaterialesPrestados();
+			for (int j = 0; j < 5; ++j) {
+				if (materialesPrestados[j] != nullptr) {
+					archivoUsuariosMateriales << usuarios[i]->getId() << "," << materialesPrestados[j]->getIsbn() << "\n";
+				}
+			}
+		}
+		archivoUsuariosMateriales.close();
+	} else {
+		std::cerr << "Error al abrir el archivo de UsuariosMateriales" << std::endl;
+	}
 }
 
 bool Sistema::agregarAListaBiblioteca(MaterialBibliografico* material) {
@@ -425,5 +458,10 @@ void Sistema::mostrarUsuarios() {
 }
 
 void Sistema::liberarMemoria() {
-
+	for(int i = 0; i < sizeUsuario; i++) {
+		delete usuarios[i];
+	}
+	for(int i = 0; i < sizeBiblioteca; i++) {
+		delete biblioteca[i];
+	}
 }

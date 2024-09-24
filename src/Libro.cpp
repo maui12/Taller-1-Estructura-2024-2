@@ -33,6 +33,10 @@ std::string Libro::mostrarInformacion() {
 	return "[ Libro: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = "+std::to_string(prestado)+" ]\n"+"-Resumen = "+resumen+"\n-Fecha de publicacion = "+fechaPublicacion+"\n";
 }
 
-Libro::~Libro() {
+std::string Libro::guardarInformacion() const {
+    return "Libro," + isbn + "," + nombre + "," + autor + "," + fechaPublicacion + "," + resumen + "," + std::to_string(prestado) + "\n";
+}
 
+Libro::~Libro() {
+	std::cout<<"Se elimino Libro " + nombre <<std::endl;
 }

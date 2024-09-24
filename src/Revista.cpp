@@ -35,6 +35,10 @@ std::string Revista::mostrarInformacion() {
 	return "[ Revista: ISBN = "+isbn+" Nombre = "+nombre+" Autor = "+autor+" Prestado = "+std::to_string(prestado)+" ]\n"+"-N° edicion = "+numeroEdicion+"\n-Mes de publicacion = "+mesPublicacion+"\n";
 }
 
-Revista::~Revista() {
+std::string Revista::guardarInformacion() const {
+    return "Revista," + isbn + "," + nombre + "," + autor + "," + numeroEdicion + "," + mesPublicacion + "," + std::to_string(prestado) + "\n";
+}
 
+Revista::~Revista() {
+	std::cout<<"Se elimino Revista " + nombre <<std::endl;
 }

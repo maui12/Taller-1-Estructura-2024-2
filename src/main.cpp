@@ -93,5 +93,8 @@ int main() {
 	}
 	while(salir);
 
+	sistema->liberarMemoria();
+	delete sistema;
+
     return 0;
 }

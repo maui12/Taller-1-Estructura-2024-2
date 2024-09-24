@@ -41,6 +41,10 @@ void MaterialBibliografico::setPrestado(int prestado) {
 	this ->prestado = prestado;
 }
 
+std::string MaterialBibliografico::	getTipoMaterial() {
+	return tipoMaterial;
+}
+
 std::string MaterialBibliografico::mostrarInformacion() {
 	return "";
 }

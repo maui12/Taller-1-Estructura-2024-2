@@ -68,6 +68,7 @@ void Usuario::setSizeMaterialesPrestados(int sizeMaterialesPrestados) {
 }
 
 Usuario::~Usuario() {
+	std::cout<<"Se elimino Usuario " + nombre <<std::endl;
     for (int i = 0; i < 5; i++) {
         if (materialesPrestados[i] != nullptr) {
             materialesPrestados[i]->setPrestado(0);
